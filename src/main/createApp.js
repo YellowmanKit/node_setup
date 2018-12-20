@@ -9,9 +9,7 @@ import path from 'path';
 import fs from 'fs';
 
 import AppRouter from './routers/app.js';
-
-//const temp = 'C:/data/temp/';
-//const storage = 'C:/data/storage/';
+import UserRouter from './routers/user.js';
 
 class CreateApp {
 
@@ -24,15 +22,14 @@ class CreateApp {
     const storage = path.join(__dirname, '../../../data/storage/');
 
     var storageConfig = multer.diskStorage({
-      destination: function (req, file, cb) {
+      destination: (req, file, cb) => {
         cb(null, temp);
       },
-      filename: function (req, file, cb) {
-        console.log(file)
+      filename: (req, file, cb) => {
+        //console.log(file)
         cb(null, Date.now() + '-' + file.originalname);
       }
     });
-
     var upload = multer({ storage: storageConfig });
 
     const app = express();
@@ -60,6 +57,7 @@ class CreateApp {
     app.set('storage',storage);
 
     new AppRouter(app);
+    new UserRouter(app);
 
     app.server.listen(port, ()=>{console.log('App is running on port ' + app.server.address().port);});
   }

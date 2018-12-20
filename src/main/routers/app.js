@@ -19,7 +19,7 @@ class AppRouter extends Router{
     const temp = app.get('temp');
     const storage = app.get('storage');
 
-    mongoose.connect('mongodb://localhost/mlang', { useNewUrlParser: true });
+    mongoose.connect('mongodb://localhost/sitetracker', { useNewUrlParser: true });
     var db = mongoose.connection;
 
     app.get('/download/:type/:name', (req,res,next)=>{
